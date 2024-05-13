@@ -1,0 +1,69 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<CollegeManagement.Models.Entities.Student>;
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.min.css" rel="stylesheet"></link>
+<script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
+<style>
+    .table.dataTable {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 13px;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        let t = new DataTable('#student_table', {
+            "oLanguage": {
+                "sLengthMenu": "[ Displaying _MENU_ Records per page ]",
+                "sInfo": "[ Page: _PAGE_/_PAGES_  |  Total Records: _TOTAL_ ]",
+                "sInfoEmpty":"[ Page: Not Available ]",
+                "sZeroRecords":"Sorry, No Data Available",
+                "sSearch":"Find By"
+            }
+        });
+    });
+</script>
+
+<h1>Students</h1>
+<div class="mt-3">
+    <table id="student_table" class="table table-striped row-border">
+        <thead>
+            <tr>
+                <th>Registered No</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>City</th>
+                <th>Country</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+                @foreach(var student in Model)
+                {
+                    <tr>
+                        <td>@student.reg_no</td>
+                        <td>@student.name</td>
+                        <td>@student.age</td>
+                        <td>@student.email</td>
+                        <td>@student.phone</td>
+                        <td>@student.city</td>
+                        <td>@student.country</td>
+                        <td>
+                            <a class="btn btn-outline-dark" asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id">Edit</a> /
+                            <a class="btn btn-outline-danger" asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a class="btn btn-outline-primary" asp-controller="Student" asp-action="Add">Add New</a>
+</div>
+    
